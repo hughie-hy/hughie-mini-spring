@@ -1,8 +1,8 @@
 package org.hughie.springframework.test;
 
 import org.hughie.springframework.beans.factory.config.BeanDefinition;
-import org.hughie.springframework.beans.factory.BeanFactory;
 import org.hughie.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.hughie.springframework.test.bean.AssetService;
 import org.hughie.springframework.test.bean.UserService;
 import org.junit.Test;
 
@@ -26,15 +26,30 @@ public class ApiTest {
 
     @Test
     public void testBeans(){
+        // 1.初始化 BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
+        // 2.注入bean
         BeanDefinition definition = new BeanDefinition(UserService.class);
-
         beanFactory.registerBeanDefinition("userService",definition);
 
-        UserService userService = (UserService)beanFactory.getBean("userService");
+        // 3.获取并使用bean
+        UserService userService = (UserService)beanFactory.getBean("userService","hughie");
+        userService.getAccountInfo();
+    }
 
-        userService.queryUserInfo();
+    @Test
+    public void testBeanAsset(){
+        // 1.初始化 BeanFactory
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+
+        // 2.注入bean
+        BeanDefinition definition = new BeanDefinition(AssetService.class);
+        beanFactory.registerBeanDefinition("assetService",definition);
+
+        // 3.获取并使用bean
+        AssetService assertService = (AssetService)beanFactory.getBean("assetService");
+        assertService.queryAssert();
     }
 
 }
