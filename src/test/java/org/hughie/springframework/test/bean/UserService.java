@@ -1,4 +1,4 @@
-package cn.hughie.springframework.test.bean;
+package org.hughie.springframework.test.bean;
 
 /**
  * 模拟bean对象
