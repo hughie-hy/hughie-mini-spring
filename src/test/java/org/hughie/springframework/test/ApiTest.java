@@ -5,6 +5,7 @@ import org.hughie.springframework.beans.PropertyValues;
 import org.hughie.springframework.beans.factory.config.BeanDefinition;
 import org.hughie.springframework.beans.factory.config.BeanReference;
 import org.hughie.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.hughie.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.hughie.springframework.test.bean.AssetDao;
 import org.hughie.springframework.test.bean.AssetService;
 import org.hughie.springframework.test.bean.UserDao;
@@ -34,7 +35,7 @@ public class ApiTest {
         // 1.初始化 BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
-        // 2.注入bean
+        // 2.定义、注入bean
         BeanDefinition definition = new BeanDefinition(UserService.class);
         beanFactory.registerBeanDefinition("userService", definition);
 
@@ -48,7 +49,7 @@ public class ApiTest {
         // 1.初始化 BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
-        // 2.注入bean
+        // 2.定义、注入bean
         BeanDefinition definition = new BeanDefinition(AssetService.class);
         beanFactory.registerBeanDefinition("assetService", definition);
 
@@ -63,8 +64,9 @@ public class ApiTest {
 
         // assetDao注入容器
         BeanDefinition assetDaoDefinition = new BeanDefinition(AssetDao.class);
-        beanFactory.registerBeanDefinition("assetDao",assetDaoDefinition);
+        beanFactory.registerBeanDefinition("assetDao", assetDaoDefinition);
 
+        // bean注入属性
         PropertyValues propertyValues = new PropertyValues();
         propertyValues.addPropertyValue(new PropertyValue("assetDao", new BeanReference("assetDao")));
 
@@ -75,6 +77,18 @@ public class ApiTest {
         assetService.queryAssert("招商银行");
 
 
+    }
+
+    @Test
+    public void testV(){
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+
+        // 通过配置文件注入对象
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        reader.loadBeanDefinitions("classpath:spring.xml");
+
+        AssetService assetService = (AssetService)beanFactory.getBean("assetService");
+        assetService.queryAssert("招商银行");
     }
 
 }
