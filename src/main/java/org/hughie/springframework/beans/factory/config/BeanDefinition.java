@@ -8,6 +8,9 @@ import org.hughie.springframework.beans.PropertyValues;
  */
 public class BeanDefinition {
 
+    /**
+     * 类类型
+     */
     private Class beanClass;
 
     private PropertyValues propertyValues;

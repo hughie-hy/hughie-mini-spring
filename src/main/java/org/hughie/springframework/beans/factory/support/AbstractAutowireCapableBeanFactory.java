@@ -22,6 +22,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
         }
+        // 默认创建单例对象
         registerSingleton(beanName, bean);
         return bean;
     }

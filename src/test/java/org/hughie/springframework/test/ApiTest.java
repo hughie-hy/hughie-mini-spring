@@ -8,7 +8,6 @@ import org.hughie.springframework.beans.factory.support.DefaultListableBeanFacto
 import org.hughie.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.hughie.springframework.test.bean.AssetDao;
 import org.hughie.springframework.test.bean.AssetService;
-import org.hughie.springframework.test.bean.UserDao;
 import org.hughie.springframework.test.bean.UserService;
 import org.junit.Test;
 
@@ -36,6 +35,7 @@ public class ApiTest {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
         // 2.定义、注入bean
+        // 与测试案例1直接传入对象相比，优势在于使用时才会创建对象 懒加载
         BeanDefinition definition = new BeanDefinition(UserService.class);
         beanFactory.registerBeanDefinition("userService", definition);
 
