@@ -1,6 +1,9 @@
 package org.hughie.springframework.beans;
 
-public class BeansException extends RuntimeException{
+/**
+ * 自定义Bean异常
+ */
+public class BeansException extends RuntimeException {
 
     public BeansException(String msg) {
         super(msg);

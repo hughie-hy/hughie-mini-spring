@@ -4,6 +4,9 @@ import org.hughie.springframework.beans.BeansException;
 import org.hughie.springframework.beans.factory.BeanFactory;
 import org.hughie.springframework.beans.factory.config.BeanDefinition;
 
+/**
+ * 抽象的 Bean 工厂基类，定义模板方法
+ */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
     @Override
     public Object getBean(String name) throws BeansException {

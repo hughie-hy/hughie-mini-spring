@@ -9,6 +9,7 @@ public interface BeanFactory {
 
     /**
      * 返回bean的实例对象
+     *
      * @param name
      * @return
      * @throws BeansException
@@ -17,10 +18,11 @@ public interface BeanFactory {
 
     /**
      * 返回含构造函数的实例对象
+     *
      * @param name
      * @param args
      * @return
      * @throws BeansException
      */
-    public Object getBean(String name,Object... args) throws BeansException;
+    public Object getBean(String name, Object... args) throws BeansException;
 }

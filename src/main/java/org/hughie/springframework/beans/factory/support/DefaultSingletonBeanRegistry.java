@@ -4,9 +4,12 @@ import org.hughie.springframework.beans.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 
+/**
+ * 默认单例注册实现
+ */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
-    private HashMap<String,Object> singletonObjects = new HashMap<>();
+    private HashMap<String, Object> singletonObjects = new HashMap<>();
 
     @Override
     public Object getSingleton(String beanName) {
@@ -15,6 +18,6 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
     @Override
     public void registerSingleton(String beanName, Object singletonObject) {
-        singletonObjects.put(beanName,singletonObject);
+        singletonObjects.put(beanName, singletonObject);
     }
 }
