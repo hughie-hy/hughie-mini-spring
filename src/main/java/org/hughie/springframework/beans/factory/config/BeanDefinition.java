@@ -13,6 +13,9 @@ public class BeanDefinition {
      */
     private Class beanClass;
 
+    /**
+     * bean中的属性
+     */
     private PropertyValues propertyValues;
 
 
