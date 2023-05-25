@@ -34,7 +34,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
         return beanDefinitionMap.containsKey(beanName);
     }
 
-    public <T> Map<String, T> getBeanOfType(Class<T> type) throws BeansException {
+    @Override
+    public <T> Map<String, T> getBeansOfType(Class<T> type) throws BeansException {
         HashMap<String, T> resultMap = new HashMap<>();
         beanDefinitionMap.forEach((beanName, beanDefinition) -> {
             Class beanClass = beanDefinition.getBeanClass();
@@ -43,5 +44,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
             }
         });
         return resultMap;
+    }
+
+    @Override
+    public String[] getBeanDefinitionNames() {
+        return beanDefinitionMap.keySet().toArray(new String[0]);
     }
 }

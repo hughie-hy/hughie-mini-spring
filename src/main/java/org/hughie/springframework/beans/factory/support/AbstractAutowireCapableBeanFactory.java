@@ -4,12 +4,20 @@ import cn.hutool.core.bean.BeanUtil;
 import org.hughie.springframework.beans.BeansException;
 import org.hughie.springframework.beans.PropertyValue;
 import org.hughie.springframework.beans.PropertyValues;
+import org.hughie.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.hughie.springframework.beans.factory.config.BeanDefinition;
+import org.hughie.springframework.beans.factory.config.BeanPostProcessor;
 import org.hughie.springframework.beans.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
 
-public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
+/**
+ * 实现默认bean创建的抽象bean工厂超类
+ *
+ * @author hughie.cheng
+ * @since 2022/12/8
+ */
+public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
     private InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();
 
@@ -69,4 +77,42 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         this.instantiationStrategy = instantiationStrategy;
     }
 
+
+    /**
+     * 执行 BeanPostProcessors 接口实现类的 postProcessBeforeInitialization 方法
+     *
+     * @param existingBean
+     * @param beanName
+     * @return
+     * @throws BeansException
+     */
+    @Override
+    public Object applyBeanPostProcessorsBeforeInitialization(Object existingBean, String beanName) throws BeansException {
+        Object result = existingBean;
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            Object current = beanPostProcessor.postProcessBeforeInitialization(result, beanName);
+            if (current == null) return result;
+            result = current;
+        }
+        return result;
+    }
+
+    /**
+     * 执行 BeanPostProcessors 接口实现类的 postProcessorsAfterInitialization 方法
+     *
+     * @param existingBean
+     * @param beanName
+     * @return
+     * @throws BeansException
+     */
+    @Override
+    public Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName) throws BeansException {
+        Object result = existingBean;
+        for (BeanPostProcessor processor : getBeanPostProcessors()) {
+            Object current = processor.postProcessAfterInitialization(result, beanName);
+            if (current == null) return result;
+            result = current;
+        }
+        return result;
+    }
 }
