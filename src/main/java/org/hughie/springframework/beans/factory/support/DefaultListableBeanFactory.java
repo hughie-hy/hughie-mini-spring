@@ -19,7 +19,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
         return beanDefinition;
     }
 
-    //TODO beanDefinitionMap.keySet().forEach(this::getBean);需要理解
+    /**
+     * getBean会返回实例化对象，若不存在则创建该实例
+     */
     @Override
     public void preInstantiateSingletons() throws BeansException {
         beanDefinitionMap.keySet().forEach(this::getBean);

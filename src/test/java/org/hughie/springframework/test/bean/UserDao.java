@@ -8,10 +8,23 @@ public class UserDao {
     private static Map<String, String> hashMap = new HashMap<>();
 
     static {
-        hashMap.put("101", "hughie1");
-        hashMap.put("102", "hughie2");
-        hashMap.put("103", "hughie3");
+        hashMap.put("001", "tom");
+        hashMap.put("002", "jenny");
+        hashMap.put("003", "hughie");
     }
+
+    public void initMethod() {
+        System.out.println("executing: initMethod");
+        hashMap.put("001", "tom");
+        hashMap.put("002", "jenny");
+        hashMap.put("003", "hughie");
+    }
+
+    public void destroyDataMethod() {
+        System.out.println("executing：destroy-method");
+        hashMap.clear();
+    }
+
 
     public String queryUserName(String uId) {
         System.out.println(hashMap.get(uId));

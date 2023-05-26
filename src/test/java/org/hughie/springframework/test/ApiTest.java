@@ -6,6 +6,7 @@ import org.hughie.springframework.beans.factory.config.BeanDefinition;
 import org.hughie.springframework.beans.factory.config.BeanReference;
 import org.hughie.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.hughie.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.hughie.springframework.context.support.ClassPathXmlApplicationContext;
 import org.hughie.springframework.test.bean.AssetDao;
 import org.hughie.springframework.test.bean.AssetService;
 import org.hughie.springframework.test.bean.UserService;
@@ -80,15 +81,22 @@ public class ApiTest {
     }
 
     @Test
-    public void testV(){
+    public void testV() {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
         // 通过配置文件注入对象
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         reader.loadBeanDefinitions("classpath:spring.xml");
 
-        AssetService assetService = (AssetService)beanFactory.getBean("assetService");
+        AssetService assetService = (AssetService) beanFactory.getBean("assetService");
         assetService.queryAssert("招商银行");
+    }
+
+    @Test
+    public void testVII() {
+        ClassPathXmlApplicationContext xmlApplicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        AssetService assetService = (AssetService) xmlApplicationContext.getBean("assetService");
+        assetService.queryAssert("平安银行");
     }
 
 }
