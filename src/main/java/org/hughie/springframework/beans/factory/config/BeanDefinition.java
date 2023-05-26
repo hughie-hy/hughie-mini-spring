@@ -4,7 +4,13 @@ import org.hughie.springframework.beans.PropertyValue;
 import org.hughie.springframework.beans.PropertyValues;
 
 /**
+ * A BeanDefinition describes a bean instance, which has property values,
+ * constructor argument values, and further information supplied by
+ * concrete implementations.
  * bean 定义
+ *
+ * @author hughie.cheng
+ * @since 2022/12/8
  */
 public class BeanDefinition {
 

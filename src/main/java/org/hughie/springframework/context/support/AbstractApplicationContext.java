@@ -51,4 +51,64 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
             beanFactory.addBeanPostProcessor(beanPostProcessor);
         }
     }
+
+    /**
+     * 返回bean的实例对象
+     *
+     * @param name
+     * @return
+     * @throws BeansException
+     */
+    @Override
+    public Object getBean(String name) throws BeansException {
+        return getBeanFactory().getBean(name);
+    }
+
+    /**
+     * 返回含构造函数的实例对象
+     *
+     * @param name
+     * @param args
+     * @return
+     * @throws BeansException
+     */
+    @Override
+    public Object getBean(String name, Object... args) throws BeansException {
+        return getBeanFactory().getBean(name, args);
+    }
+
+    /**
+     * 返回指定泛型的对象
+     *
+     * @param name
+     * @param requiredType
+     * @return
+     * @throws BeansException
+     */
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return getBeanFactory().getBean(name, requiredType);
+    }
+
+    /**
+     * 按照类型返回 Bean 实例
+     *
+     * @param type
+     * @return
+     * @throws BeansException
+     */
+    @Override
+    public <T> Map<String, T> getBeansOfType(Class<T> type) throws BeansException {
+        return getBeanFactory().getBeansOfType(type);
+    }
+
+    /**
+     * 返回注册表中所有的Bean名称
+     *
+     * @return
+     */
+    @Override
+    public String[] getBeanDefinitionNames() {
+        return getBeanFactory().getBeanDefinitionNames();
+    }
 }
