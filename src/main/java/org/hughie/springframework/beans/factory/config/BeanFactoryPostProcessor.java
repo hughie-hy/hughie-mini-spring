@@ -1,7 +1,7 @@
 package org.hughie.springframework.beans.factory.config;
 
+import org.hughie.springframework.ConfigurableListableBeanFactory;
 import org.hughie.springframework.beans.BeansException;
-import org.hughie.springframework.beans.factory.ConfigurableBeanFactory;
 
 public interface BeanFactoryPostProcessor {
 
@@ -11,5 +11,5 @@ public interface BeanFactoryPostProcessor {
      * @param beanFactory
      * @throws BeansException
      */
-    void postProcessBeanFactory(ConfigurableBeanFactory beanFactory) throws BeansException;
+    void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException;
 }
