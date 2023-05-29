@@ -1,6 +1,6 @@
 package org.hughie.springframework.test.seventhchapter;
 
-import org.hughie.springframework.test.bean.UserDao;
+import org.hughie.springframework.test.seventhchapter.UserDao;
 
 /**
  * @author hughie.cheng
