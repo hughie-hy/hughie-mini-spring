@@ -5,8 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import org.hughie.springframework.beans.BeansException;
 import org.hughie.springframework.beans.PropertyValue;
 import org.hughie.springframework.beans.PropertyValues;
-import org.hughie.springframework.beans.factory.DisposableBean;
-import org.hughie.springframework.beans.factory.InitializingBean;
+import org.hughie.springframework.beans.factory.*;
 import org.hughie.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.hughie.springframework.beans.factory.config.BeanDefinition;
 import org.hughie.springframework.beans.factory.config.BeanPostProcessor;
@@ -14,7 +13,6 @@ import org.hughie.springframework.beans.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 
 /**
  * 实现默认bean创建的抽象bean工厂超类
@@ -55,6 +53,17 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     public Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+        if (bean instanceof Aware){
+            if (bean instanceof BeanFactoryAware){
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+            if (bean instanceof BeanClassLoaderAware){
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+            }
+            if (bean instanceof BeanNameAware){
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
         // 1. 执行 BeanPostProcessor Before 处理
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
         try {

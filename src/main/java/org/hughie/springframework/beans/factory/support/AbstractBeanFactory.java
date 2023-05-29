@@ -5,6 +5,7 @@ import org.hughie.springframework.beans.factory.BeanFactory;
 import org.hughie.springframework.beans.factory.ConfigurableBeanFactory;
 import org.hughie.springframework.beans.factory.config.BeanDefinition;
 import org.hughie.springframework.beans.factory.config.BeanPostProcessor;
+import org.hughie.springframework.utils.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,11 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      * BeanPostProcessors to apply in createBean
      */
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+
+    /**
+     * ClassLoader to resolve bean class names with, if necessary
+     */
+    private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     @Override
     public Object getBean(String name) throws BeansException {
@@ -60,5 +66,9 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      */
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
+    }
+
+    public ClassLoader getBeanClassLoader() {
+        return beanClassLoader;
     }
 }
