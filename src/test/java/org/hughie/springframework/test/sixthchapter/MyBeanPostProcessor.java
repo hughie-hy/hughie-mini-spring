@@ -1,4 +1,4 @@
-package org.hughie.springframework.test.seventhchapter;
+package org.hughie.springframework.test.sixthchapter;
 
 import org.hughie.springframework.beans.BeansException;
 import org.hughie.springframework.beans.factory.config.BeanPostProcessor;

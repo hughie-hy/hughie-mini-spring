@@ -1,10 +1,10 @@
 package org.hughie.springframework.beans.factory.support;
 
+import org.hughie.springframework.beans.BeansException;
 import org.hughie.springframework.beans.factory.DisposableBean;
 import org.hughie.springframework.beans.factory.config.SingletonBeanRegistry;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 默认单例注册表实现
@@ -16,7 +16,9 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
     private HashMap<String, Object> singletonObjects = new HashMap<>();
 
-    //TODO disposableBeans作用
+    /**
+     * 用于注册实现了 DisposableBean 接口的 Bean 对象
+     */
     private final Map<String, DisposableBean> disposableBeans = new HashMap<>();
 
     @Override
@@ -33,7 +35,16 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
         singletonObjects.put(beanName, singletonObject);
     }
 
-    public void destroySingletons(){
-
+    public void destroySingletons() {
+        Set<String> keySet = this.disposableBeans.keySet();
+        Object[] disposableBeanNames = keySet.toArray();
+        for (Object disposableBeanName : disposableBeanNames) {
+            DisposableBean disposableBean = disposableBeans.remove(disposableBeanName);
+            try {
+                disposableBean.destroy();
+            } catch (Exception e) {
+                throw new BeansException("Destroy method on bean with name '" + disposableBeanNames + "' threw an exception", e);
+            }
+        }
     }
 }
