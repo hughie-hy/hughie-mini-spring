@@ -1,14 +1,13 @@
-package org.hughie.springframework.test;
+package org.hughie.springframework.test.sixthchapter;
 
 import org.hughie.springframework.context.support.ClassPathXmlApplicationContext;
-import org.hughie.springframework.test.sixthchapter.UserService;
 import org.junit.Test;
 
 /**
  * @author hughie.cheng
  * @since 2023/5/29
  */
-public class TestSix {
+public class ApiTest {
     @Test
     public void test_xml() {
         // 1.初始化 BeanFactory

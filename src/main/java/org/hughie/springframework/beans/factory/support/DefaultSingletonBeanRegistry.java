@@ -17,6 +17,12 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
     private HashMap<String, Object> singletonObjects = new HashMap<>();
 
     /**
+     * Internal marker for a null singleton object:
+     * used as marker value for concurrent Maps (which don't support null values).
+     */
+    protected static final Object NULL_OBJECT = new Object();
+
+    /**
      * 用于注册实现了 DisposableBean 接口的 Bean 对象
      */
     private final Map<String, DisposableBean> disposableBeans = new HashMap<>();

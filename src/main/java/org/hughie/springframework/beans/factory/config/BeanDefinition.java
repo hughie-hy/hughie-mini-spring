@@ -1,7 +1,7 @@
 package org.hughie.springframework.beans.factory.config;
 
-import org.hughie.springframework.beans.PropertyValue;
 import org.hughie.springframework.beans.PropertyValues;
+import org.hughie.springframework.beans.factory.ConfigurableBeanFactory;
 
 /**
  * A BeanDefinition describes a bean instance, which has property values,
@@ -13,6 +13,10 @@ import org.hughie.springframework.beans.PropertyValues;
  * @since 2022/12/8
  */
 public class BeanDefinition {
+
+    String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
+
+    String SCOPE_PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
     /**
      * 类类型
@@ -33,6 +37,12 @@ public class BeanDefinition {
      * bean的销毁方法
      */
     private String destroyMethodName;
+
+    private String scope = SCOPE_SINGLETON;
+
+    private boolean singleton = true;
+
+    private boolean prototype = false;
 
     public BeanDefinition(Class beanClass) {
         this.beanClass = beanClass;
@@ -74,5 +84,22 @@ public class BeanDefinition {
 
     public void setDestroyMethodName(String destroyMethodName) {
         this.destroyMethodName = destroyMethodName;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public boolean isSingleton() {
+        return singleton;
+    }
+
+    /**
+     * 在xml注册Bean定义时，通过scope字段来判断是单例还是原型
+     */
+    public void setScope(String scope) {
+        this.scope = scope;
+        this.singleton = SCOPE_SINGLETON.equals(scope);
+        this.prototype = SCOPE_PROTOTYPE.equals(scope);
     }
 }

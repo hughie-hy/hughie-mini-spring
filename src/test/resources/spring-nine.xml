@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="userService" class="org.hughie.springframework.test.ninethchapter.UserService" scope="prototype">
+        <property name="uId" value="10001"/>
+        <property name="company" value="UBSSDIC"/>
+        <property name="location" value="深圳"/>
+        <property name="userDao" ref="proxyUserDao"/>
+    </bean>
+
+    <bean id="proxyUserDao" class="org.hughie.springframework.test.ninethchapter.ProxyBeanFactory"/>
+
+</beans>
