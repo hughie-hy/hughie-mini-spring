@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean class="org.hughie.springframework.test.tenthcharpter.ContextRefreshedEventListener"/>
+
+    <bean class="org.hughie.springframework.test.tenthcharpter.CustomEventListener"/>
+
+    <bean class="org.hughie.springframework.test.tenthcharpter.ContextClosedEventListener"/>
+
+</beans>
